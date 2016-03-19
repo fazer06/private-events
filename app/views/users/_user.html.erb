@@ -1,0 +1,16 @@
+<ul class="media-list">
+	<li class="media b-b-1 m-b-10">
+		<div class="media-left">
+			<a href="#"><%= gravatar_for user, size: 50 %></a>
+		</div>
+		<div class="media-body">
+			<h4 class="media-heading">
+				<%= link_to user.username, user %>
+				  	<% if current_user.admin? && !current_user?(user) %>
+	    				| <%= link_to "delete", user, method: :delete,
+	                                  			data: { confirm: "You sure?" } %>
+	  				<% end %>
+			</h4>
+		</div>
+	</li>
+</ul>

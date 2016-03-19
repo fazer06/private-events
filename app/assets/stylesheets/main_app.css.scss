@@ -1,0 +1,236 @@
+/* Text */
+
+.center {
+	text-align: center;
+}
+
+h1 {
+	margin-bottom: 10px;
+}
+
+/*****  Margin  *****/
+
+.m-t-10 {
+  margin-top: 10px ;
+}
+
+.m-t-20 {
+  margin-top: 20px ;
+}
+
+.m-b-10 {
+  margin-bottom: 10px ;
+}
+
+.m-b-20 {
+  margin-bottom: 20px ;
+}
+
+/*****  Padding  *****/
+
+.p-t-10 {
+  padding-top: 10px;
+}
+
+.p-t-20 {
+  padding-top: 20px;
+}
+
+.p-b-10 {
+  padding-bottom: 10px;
+}
+
+.p-b-20 {
+  padding-bottom: 20px;
+}
+
+/***** Border Styles *****/
+
+.b-b-1 {
+  border-bottom: 1px solid #ccc ;
+}
+
+/***** Custom Button Styles *****/
+
+.btn {
+   box-shadow: none;
+   border-radius: 0;
+}
+
+.btn-custom {
+   border: 0;
+   color: #fff;
+   font-size: 14px;
+   cursor: pointer;
+   font-weight: 400;
+   padding: 6px 13px;
+   position: relative;
+   background: #95a5a6;
+   white-space: nowrap;
+   display: inline-block;
+   text-decoration: none;
+}
+
+.btn-custom:hover {
+  color: #fff;
+  background: #7f8c8d;
+  text-decoration: none;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Blue */
+.btn-custom.btn-custom-blue {
+   background: #4765a0;
+}
+
+.btn-custom.btn-custom-blue:hover, 
+.btn-custom.btn-custom-blue:focus, 
+.btn-custom.btn-custom-blue:active, 
+.btn-custom.btn-custom-blue.active, 
+.open .dropdown-toggle.btn-custom.btn-custom-blue {
+   background: #324c80;
+}
+
+/* Red */
+.btn-custom.btn-custom-red {
+   background: #c0392b;
+}
+
+.btn-custom.btn-custom-red:hover, 
+.btn-custom.btn-custom-red:focus, 
+.btn-custom.btn-custom-red:active, 
+.btn-custom.btn-custom-red.active, 
+.open .dropdown-toggle.btn-custom.btn-custom-red {
+   background: #de4e3f;
+}
+
+/* Orange */
+.btn-custom.btn-custom-orange {
+   background: #e67e22;
+}
+
+.btn-custom.btn-custom-orange:hover, 
+.btn-custom.btn-custom-orange:focus, 
+.btn-custom.btn-custom-orange:active, 
+.btn-custom.btn-custom-orange.active, 
+.open .dropdown-toggle.btn-custom.btn-custom-orange {
+   background: #eb8b35;
+}
+
+/***** Custom Outlined Button *****/
+
+.btn-custom.btn-outline {
+  color: #555;
+  background: none;
+  padding: 5px 13px;
+  border: solid 1px transparent;
+   -webkit-transition: all 0.1s ease-in-out;
+   -moz-transition: all 0.1s ease-in-out;
+   -o-transition: all 0.1s ease-in-out;
+   transition: all 0.1s ease-in-out;   
+}
+
+.btn-custom.btn-outline:hover {
+  background: none;
+  border: solid 1px #eee;
+}
+.btn-custom.btn-outline:focus {
+  background: none;
+}
+.btn-custom.btn-outline.btn-outline-hover:hover {
+   color: #fff !important;
+}
+
+/*.btn-custom.btn-outline {
+  border-color: #7f8c8d;
+}*/
+
+/* Blue */
+.btn-custom.btn-outline.btn-custom-blue {
+  border-color: #3498db;
+}
+.btn-custom.btn-outline.btn-custom-blue:hover {
+  color: #2980b9;
+  border-color: #2980b9;
+}
+.btn-custom.btn-outline.btn-custom-blue.btn-outline-hover:hover {
+   background: #2980b9;
+}
+
+/* Red */
+.btn-custom.btn-outline.btn-custom-red {
+  border-color: #e74c3c;
+}
+.btn-custom.btn-outline.btn-custom-red:hover {
+  color: #c0392b;
+  border-color: #c0392b;
+}
+.btn-custom.btn-outline.btn-custom-red.btn-outline-hover:hover {
+   background: #c0392b;
+}
+
+/* Orange */
+.btn-custom.btn-outline.btn-custom-orange {
+  border-color: #e67e22;
+}
+.btn-custom.btn-outline.btn-custom-orange:hover {
+  color: #d35400;
+  border-color: #d35400;
+}
+.btn-custom.btn-outline.btn-custom-orange.btn-outline-hover:hover {
+   background: #d35400;
+}
+
+/***** Button Sizes *****/
+
+.btn-custom-lg,
+a.btn-custom-lg {
+   font-size: 18px;
+   padding: 10px 25px;
+}
+
+.btn-custom-sm,
+a.btn-custom-sm {
+   padding: 3px 12px;
+}
+
+.btn-custom-xs,
+a.btn-custom-xs {
+   font-size: 12px;
+   padding: 2px 12px;   
+   line-height: 18px;
+}
+
+/***** Button Rounding *****/
+
+.rounded { 
+	border-radius: 4px !important;
+}
+
+.rounded-x2 { 
+	border-radius: 10px !important;
+}
+.rounded-x3 { 
+	border-radius: 15px !important;
+}
+.rounded-x4 { 
+	border-radius: 20px !important;
+}
+
+/********* Forms ***********/
+
+#error_explanation {
+  color: red;
+}
+
+#error_explanation ul {
+  color: red;
+  margin: 0 0 30px 0;
+}
+
+.field_with_errors .form-control {
+  color: red;
+}

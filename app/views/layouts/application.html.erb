@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Call the full title helper with the provided page title as the parameter -->
+<title><%= full_title(yield(:title)) %></title>
+
+<!-- The stylesheet_link_tag function -->
+<!-- Parentheses on these function calls are optional -->
+<!-- Curly braces on final hash arguments are optional -->
+<!-- The data-turbolinks-track key-value pair use the old-style hashrocket because using the newer syntax is invalid because of the hyphens, remember that hyphens can’t be used in symbols -->
+
+<%= stylesheet_link_tag('application', { media: 'all', 'data-turbolinks-track' => true }) %>
+
+<!-- The stylesheet_link_tag is a function with two arguments  -->
+<!-- 1: a string, ('application') indicating the path to the stylesheet  -->
+<!-- 2: a hash with two elements, one indicating the media type (media: 'all') -->
+<!-- the second telling Rails to use the turbolinks -->
+
+<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+<%= csrf_meta_tags %>
+<%= render 'layouts/meta_tags' %>
+<%= render 'layouts/shim' %>
+</head>
+<body>
+
+<%= render 'layouts/nav' %>
+
+<div class="container">
+
+	<% flash.each do |message_type, message| %>
+		<%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
+	<% end %>
+
+	<%= yield %>
+	
+	<%= debug(params) if Rails.env.development? %>
+</div>
+
+<%= render 'layouts/google_analytics' %>
+</body>
+</html>
