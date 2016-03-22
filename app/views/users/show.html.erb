@@ -7,6 +7,16 @@
 		</h1>	
 	</div>
 	<div class="col-md-8">
-		
+		<% if @user.events.any? %>
+			<h3>Submitted 
+				<%= pluralize(current_user.events.count, "event") %>
+			</h3>
+			<ul class="media-list">
+				<%= render @events %>
+			</ul>
+			<%= will_paginate @events %>
+		<% else %>
+			<h3>No Events Found</h3>
+		<% end %>
 	</div>
 </div>

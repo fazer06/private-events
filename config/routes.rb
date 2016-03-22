@@ -16,6 +16,14 @@
 #                         PATCH  /users/:id(.:format)                    users#update
 #                         PUT    /users/:id(.:format)                    users#update
 #                         DELETE /users/:id(.:format)                    users#destroy
+#                  events GET    /events(.:format)                       events#index
+#                         POST   /events(.:format)                       events#create
+#               new_event GET    /events/new(.:format)                   events#new
+#              edit_event GET    /events/:id/edit(.:format)              events#edit
+#                   event GET    /events/:id(.:format)                   events#show
+#                         PATCH  /events/:id(.:format)                   events#update
+#                         PUT    /events/:id(.:format)                   events#update
+#                         DELETE /events/:id(.:format)                   events#destroy
 # edit_account_activation GET    /account_activations/:id/edit(.:format) account_activations#edit
 #         password_resets POST   /password_resets(.:format)              password_resets#create
 #      new_password_reset GET    /password_resets/new(.:format)          password_resets#new
@@ -55,6 +63,7 @@ Rails.application.routes.draw do
 	#           DELETE  /users/:id        users#destroy
 
 	resources :users
+	resources :events
 	# resources for account activations and password resets
 	resources :account_activations, only: [:edit]
 	resources :password_resets,     only: [:new, :create, :edit, :update]

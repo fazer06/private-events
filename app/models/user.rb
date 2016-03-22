@@ -24,6 +24,9 @@
 
 class User < ActiveRecord::Base
 
+	has_many :events, :foreign_key => :creator_id
+	
+
 	attr_accessor :remember_token, :activation_token, :reset_token
 	# downcase the email and username attributes before saving the user
 	#before_save { self.email = email.downcase }

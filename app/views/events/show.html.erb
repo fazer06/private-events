@@ -1,0 +1,21 @@
+<div class="row">
+	<div class="col-md-12">
+    <p>Location: <%= @event.location %></p> 
+    <p>Published By: <%= @event.creator.username %></p>
+    <p><%= @event.description %></p>
+
+    <h2>
+
+    <%= link_to "Back", events_path, class: "btn btn-sm btn-default" %>
+    
+    <% if logged_in? && current_user?(@event.creator) || current_user.try(:admin?) %>
+
+    <%= link_to "Edit", edit_event_path, class: "btn btn-sm btn-success" %>
+    <%= link_to "Delete", event_path(@event), 
+      method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-sm btn-danger" %>
+
+    <% end %>
+    </h2>
+
+	</div>
+</div>

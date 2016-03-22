@@ -1,0 +1,21 @@
+<% provide(:title, "Events") %>
+
+<% if logged_in? %>
+	<%= render 'jumbotron' %>
+<% end %>
+
+<div class="row">
+	<div class="col-md-12">
+		<% if @events.any? %>
+			<ul class="media-list">
+				<%= render @events %>
+			</ul>
+			<%= will_paginate @events %>
+		<% else %>
+			<h3>Events (0)</h3>
+			<%= link_to new_event_path, class: 'btn btn-success' do %>
+				New Event <i class="fa fa-plus-circle"></i>
+			<% end %>
+		<% end %>
+	</div>
+</div>

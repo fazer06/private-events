@@ -1,0 +1,18 @@
+<li class="media">
+  <div class="media-left">
+    <a href="#"><%= link_to gravatar_for(event.creator, size: 30), event.creator %></a>
+  </div>
+  <div class="media-body">
+    <h4 class="media-heading"><%= event.location %></h4>
+      <p><%= link_to event.description, event_path(event) %></p>
+      <p>
+      	Published On: <%= event.created_at.strftime('%b %d, %Y') %>
+        <% if logged_in? %>
+      	By: <%= link_to event.creator.username, user_path(event.creator) %>
+        <% else %>
+        By: <%= event.creator.username %>
+        <% end %>
+      </p>
+      
+  </div>
+</li>
