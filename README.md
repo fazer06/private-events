@@ -72,3 +72,45 @@ We have to build a site similar to a Eventbrite which allows users to create eve
 - rails generate migration add_desc_to_events description:text
 - bundle exec rake db:migrate
 - Do all the normal CRUD actions and views.
+
+- rails generate migration add_title_to_events title:string
+- bundle exec rake db:migrate
+
+## Attendance Step 1
+
+### In app\models\user.rb
+
+    has_many :event_attendees, :foreign_key => :attendee_id
+
+### In app\models\event.rb
+
+    has_many :event_attendees, :foreign_key => :attended_event_id
+
+## Step 2
+
+    rails generate model EventAttendee attendee_id:integer attended_event_id:integer
+    rails generate controller EventAttendees
+    bundle exec rake db:migrate
+
+### In app\models\event_attendee.rb
+
+	belongs_to :attendee, 		:class_name => "User"
+	belongs_to :attended_event, :class_name => "Event"
+
+	validates :attendee_id, 		presence: true
+	validates :attended_event_id, 	presence: true
+
+## Step 3
+
+    <% if @event.attendees.any? %>
+        <% @event.attendees.each do |attendee| %>
+            <span class="attendee">
+                <%= attendee.username %>
+            </span> <br/>
+        <% end %>
+    <% else %>
+        No attendees
+    <% end %><br/>
+
+## Step 4
+

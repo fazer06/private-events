@@ -17,9 +17,11 @@
         <li class="<%= 'active' if current_page?(root_path) %>">
           <%= link_to "Home", root_path %>
         </li>
+        <% if logged_in? %>
         <li class="<%= 'active' if current_page?(events_path) %>">
           <%= link_to "Events", events_path %>
         </li>
+        <% end %>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="<%= 'active' if current_page?(help_path) %>">

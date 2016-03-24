@@ -1,22 +1,36 @@
 <% provide(:title, @user.username) %>
+
 <div class="row">
-	<div class="col-md-4">
-		<h1>
-			<%= gravatar_for @user, size: 50 %>
+	<div class="col-md-12">
+		<h2>
+			You've posted 
+			<%= pluralize(current_user.events.count, "event") %>
 			<%= @user.username %>
-		</h1>	
+		</h2>
 	</div>
-	<div class="col-md-8">
+</div>
+
+<div class="row">
+	<div class="col-md-6">
+		<h1>My Events</h1>
 		<% if @user.events.any? %>
-			<h3>Submitted 
-				<%= pluralize(current_user.events.count, "event") %>
-			</h3>
 			<ul class="media-list">
 				<%= render @events %>
 			</ul>
 			<%= will_paginate @events %>
 		<% else %>
 			<h3>No Events Found</h3>
+		<% end %>
+	</div>
+
+	<div class="col-md-6">
+		<% if @user.attended_events.any? %>
+			<h2>Upcoming Events</h2> 
+			<ul class="media-list">
+				<%= render @upcoming_events %>
+			</ul>
+		<% else %>
+			<h2>No Upcoming Events</h2>
 		<% end %>
 	</div>
 </div>

@@ -24,7 +24,25 @@
 
 class User < ActiveRecord::Base
 
+	# For this has many association to work we need a creator_id field in the 
+	# Event model, because each event has one creator who is just a user, the 
+	# creator_id is the foreign key that links to the user_id from the User model
+
 	has_many :events, :foreign_key => :creator_id
+	
+	# When a user attends an event, we use an association through the 
+	# EventAttendee model (the join table) because an event can have many 
+	# attendees (users), which is different than having only one creator (user).
+
+	# The next two has many associations point to the join table, event_attendees.
+	# Its that table which holds the id's for the User and the Event, because a 
+	# User has many Events (attended_events), through event attendees.
+
+	has_many :attended_events,  :through => :event_attendees
+
+	# Note that the EventAttendee model allows us to have two has_many relationships: 
+	# a user has many events, and an event has many users.
+	has_many :event_attendees,  :foreign_key => :attendee_id
 	
 
 	attr_accessor :remember_token, :activation_token, :reset_token
@@ -126,6 +144,30 @@ class User < ActiveRecord::Base
 	def password_reset_expired?
 		reset_sent_at < 2.hours.ago
 	end
+
+	# ------------------- Event and EventAttendee Methods ---------------------
+
+	def upcoming_events
+		self.attended_events.upcoming
+	end
+
+	def previous_events
+		self.attended_events.past
+	end	
+
+	def attending?(event)
+		event.attendees.include?(self)
+	end
+
+	def attend!(event)
+		self.event_attendees.create!(attended_event_id: event.id)
+	end
+
+	def cancel!(event)
+		self.event_attendees.find_by(attended_event_id: event.id).destroy
+	end
+
+	# ------------------- End of Event and EventAttendee Methods --------------
 
 	private
 

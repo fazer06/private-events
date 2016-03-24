@@ -64,6 +64,7 @@ Rails.application.routes.draw do
 
 	resources :users
 	resources :events
+	resources :event_attendees, only: [:create, :destroy]
 	# resources for account activations and password resets
 	resources :account_activations, only: [:edit]
 	resources :password_resets,     only: [:new, :create, :edit, :update]

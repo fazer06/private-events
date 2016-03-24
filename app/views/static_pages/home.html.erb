@@ -2,3 +2,26 @@
 <% provide(:title, "Home") %>
 <%= render 'jumbotron' %>
 <i class="fa fa-thumbs-o-up fa-5x"></i>
+
+<div class="row">
+	<div class="col-md-12">
+		<h2>Upcoming Events</h2>
+		<% if @events.upcoming.any? %>
+			<ul class="media-list">
+				<%= render @events.upcoming %>
+			</ul>
+			<%= will_paginate @events.upcoming %>
+		<% else %>
+			<h3>Events (0)</h3>
+		<% end %>
+	</div>
+	<div class="col-md-12">
+		<h2>Past Events</h2>
+		<% if @events.past.any? %>
+			<ul class="media-list">
+				<%= render @events.past %>
+			</ul>
+			<%= will_paginate @events.past %>
+		<% end %>
+	</div>
+</div>
