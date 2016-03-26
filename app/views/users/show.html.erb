@@ -32,5 +32,13 @@
 		<% else %>
 			<h2>No Upcoming Events</h2>
 		<% end %>
+
+		<h2>Past Events</h2>
+		<% if @events.past.any? %>
+			<ul class="media-list">
+				<%= render @events.past %>
+			</ul>
+		<% end %>
+
 	</div>
 </div>

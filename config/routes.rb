@@ -24,6 +24,8 @@
 #                         PATCH  /events/:id(.:format)                   events#update
 #                         PUT    /events/:id(.:format)                   events#update
 #                         DELETE /events/:id(.:format)                   events#destroy
+#         event_attendees POST   /event_attendees(.:format)              event_attendees#create
+#          event_attendee DELETE /event_attendees/:id(.:format)          event_attendees#destroy
 # edit_account_activation GET    /account_activations/:id/edit(.:format) account_activations#edit
 #         password_resets POST   /password_resets(.:format)              password_resets#create
 #      new_password_reset GET    /password_resets/new(.:format)          password_resets#new

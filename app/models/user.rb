@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
 
 	# For this has many association to work we need a creator_id field in the 
 	# Event model, because each event has one creator who is just a user, the 
-	# creator_id is the foreign key that links to the user_id from the User model
+	# creator_id is the foreign key that links (or points) to the user_id from the User model
 
 	has_many :events, :foreign_key => :creator_id
 	
@@ -34,14 +34,12 @@ class User < ActiveRecord::Base
 	# EventAttendee model (the join table) because an event can have many 
 	# attendees (users), which is different than having only one creator (user).
 
-	# The next two has many associations point to the join table, event_attendees.
-	# Its that table which holds the id's for the User and the Event, because a 
-	# User has many Events (attended_events), through event attendees.
+	# Note that the EventAttendee model allows us to have two has_many relationships: 
+	# that point to the join table, event_attendees. 
+	# (1) a user has many attended events (through) - What events is that user going to ...
+	# (2) an event has many event attendees (users) - What users are going to the events
 
 	has_many :attended_events,  :through => :event_attendees
-
-	# Note that the EventAttendee model allows us to have two has_many relationships: 
-	# a user has many events, and an event has many users.
 	has_many :event_attendees,  :foreign_key => :attendee_id
 	
 

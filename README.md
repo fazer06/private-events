@@ -1,7 +1,7 @@
 # The Odin Project - Ruby on Rails
 ## Project: Associations - Private Events 
 
-A walkthrough of my latest Odin Project app, Private Events.
+NOTE: This is in NO WAY a comprehensive walkthrough of the steps I used in the build, its just a rough set of notes for myself on the latest Odin Project app, Private Events. I've  missed loads of bits out, most of it is html stuff, the main flow at the start is all in the correct order following the steps on the site so you could follow along, but at points things wouldn't work so you would need to dig into the code to find the missing things from these notes. Apart from that, it all works. 
 
 ### Our Objective:
 
@@ -12,6 +12,8 @@ We have to build a site similar to a Eventbrite which allows users to create eve
 - A user can register for an account
 - A user can login and logout
 - A user can change their details
+- Bootstrap source in vendor/assets
+- Font awesome CSS source
 - Google Analytics Integration
 
 ## Basic Events
@@ -51,7 +53,7 @@ We have to build a site similar to a Eventbrite which allows users to create eve
 			<h3>No Events Found</h3>
 		<% end %>
 
-### Renders event from app/views/events/_event.html.erb
+### The above renders the event from app/views/events/_event.html.erb
 
 	<li class="media">
 		<div class="media-left">
@@ -80,11 +82,13 @@ We have to build a site similar to a Eventbrite which allows users to create eve
 
 ### In app\models\user.rb
 
-    has_many :event_attendees, :foreign_key => :attendee_id
+    has_many :attended_events,  :through => :event_attendees
+	has_many :event_attendees,  :foreign_key => :attendee_id
 
 ### In app\models\event.rb
 
-    has_many :event_attendees, :foreign_key => :attended_event_id
+    has_many :attendees, 		:through => :event_attendees
+	has_many :event_attendees,  :foreign_key => :attended_event_id
 
 ## Step 2
 
@@ -100,7 +104,7 @@ We have to build a site similar to a Eventbrite which allows users to create eve
 	validates :attendee_id, 		presence: true
 	validates :attended_event_id, 	presence: true
 
-## Step 3
+### Step 3 The event's show page to display a list of attendees
 
     <% if @event.attendees.any? %>
         <% @event.attendees.each do |attendee| %>
@@ -112,5 +116,115 @@ We have to build a site similar to a Eventbrite which allows users to create eve
         No attendees
     <% end %><br/>
 
-## Step 4
+### Step 4 The user's show page to display a list of events he is attending
 
+	<% if @user.attended_events.any? %>
+		<h2>Upcoming Events</h2> 
+		<ul class="media-list">
+			<%= render @upcoming_events %>
+		</ul>
+	<% else %>
+		<h2>No Upcoming Events</h2>
+	<% end %>
+
+### In app\controllers\users_controller.rb
+- @upcoming_events = @user.upcoming_events
+
+### Step 5 On the user's show page show the past events
+
+	<% if @events.past.any? %>
+		<ul class="media-list">
+			<%= render @events.past %>
+		</ul>
+	<% end %>
+
+### In app\models\user.rb
+
+#### Methods used in the user model
+
+	def upcoming_events
+		self.attended_events.upcoming
+	end
+
+	def previous_events
+		self.attended_events.past
+	end	
+
+### Step 6 app\views\events\index.html.erb
+
+	<h2>Upcoming Events</h2>
+	<% if @events.upcoming.any? %>
+		<ul class="media-list">
+			<%= render @events.upcoming %>
+		</ul>
+		<%= will_paginate @events.upcoming %>
+	<% else %>
+		<h3>Events (0)</h3>
+		<%= link_to new_event_path, class: 'btn btn-success' do %>
+			Add Event <i class="fa fa-plus-circle"></i>
+		<% end %>
+	<% end %>
+
+	<h2>Past Events</h2>
+	<% if @events.past.any? %>
+		<ul class="media-list">
+			<%= render @events.past %>
+		</ul>
+		<%= will_paginate @events.past %>
+	<% end %>
+
+### Step 7 Simple Scopes in app\models\event.rb
+
+	scope :upcoming, -> { where("Date >= ?", Date.today).order('Date ASC') }
+	scope :past, 	 -> { where("Date <  ?", Date.today).order('Date DESC') }
+
+### Step 8 Navigation
+- Bootstrap nav used
+
+### Step 9 Extra Credit
+
+### In app\models\user.rb
+
+	def attending?(event)
+		event.attendees.include?(self)
+	end
+
+	def attend!(event)
+		self.event_attendees.create!(attended_event_id: event.id)
+	end
+
+	def cancel!(event)
+		self.event_attendees.find_by(attended_event_id: event.id).destroy
+	end
+
+### In app\views\events\show.html.erb
+
+	<%= render 'attend_cancel' %>
+
+### attend form in app\views\events
+
+	<% if logged_in? && current_user.attending?(@event) %> 
+		<%= render 'cancel' %>
+	<% else %>
+		<%= render 'attend' %>
+	<% end %>
+
+### cancel form in app\views\events
+
+	<%= form_for(current_user.event_attendees.find_by(attended_event_id: @event.id),
+		html: { method: :delete }) do |f| %>
+		<%= f.submit "Cancel", class: "btn btn-sm btn-default" %>
+	<% end %>
+
+### attend form in app\views\events
+
+	<% if logged_in? %>
+		<%= form_for(current_user.event_attendees.build(attended_event_id: @event.id)) do |f| %>
+		<%= f.hidden_field :attended_event_id %>
+			<%= f.submit "Attend", class: "btn btn-sm btn-primary" %>
+		<% end %>
+	<% end %>
+
+### Step 10
+
+- git push
