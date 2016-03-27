@@ -228,3 +228,34 @@ We have to build a site similar to a Eventbrite which allows users to create eve
 ### Step 10
 
 - git push
+
+### Testing in the console
+
+### Users
+
+	u = User.first (Grab the first user)
+	u.events.count ( Return the number of events )
+	u.events ( Grab that users events )
+
+	u.attended_events (Grab all events that user is going to - USING the join )
+	u.event_attendees ( Returns the event and user id's NOT using the join )
+
+### Events
+
+	e = Event.first (Grab the first event)
+	e.attendees (Grab events attendees (returns user objects) - GOING THROUGH the join )
+	e.event_attendees ( Returns the event and user id's NOT GOING through the join )
+	e.attendees.find(2).username  (Return the username of the user going to that event) 
+	e.creator ( The user object that created the event )
+	e.creator.username ( Pull out the creator username from the user object )
+
+	e = Event.last
+	e.creator.username
+	e.attendees.each { |a| puts a.username }
+
+### Looking at the upcoming and past scopes
+
+	e = Event.all (Grab all the events)
+	e.upcoming ( list all upcoming events )
+	e.past ( list all past events )
+
